@@ -4,51 +4,46 @@ import { useState } from 'react';
 import { Shuffle, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { VerseCard } from '@/components/verse/verse-card';
+import { getRandomVerse, Verse } from '@/lib/bible-data';
 
-const randomVerses = [
-  {
-    reference: "Proverbs 3:5-6",
-    text: "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.",
-    topic: "Trust",
-    background: "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-  },
-  {
-    reference: "Isaiah 41:10",
-    text: "So do not fear, for I am with you; do not be dismayed, for I am your God. I will strengthen you and help you; I will uphold you with my righteous right hand.",
-    topic: "Courage",
-    background: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-  },
-  {
-    reference: "Psalm 23:1",
-    text: "The Lord is my shepherd, I lack nothing.",
-    topic: "Peace",
-    background: "https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-  },
-  {
-    reference: "Matthew 11:28",
-    text: "Come to me, all you who are weary and burdened, and I will give you rest.",
-    topic: "Rest",
-    background: "https://images.pexels.com/photos/158826/structure-light-led-movement-158826.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-  },
-  {
-    reference: "Romans 8:28",
-    text: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose.",
-    topic: "Faith",
-    background: "https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-  }
+const backgrounds = [
+  "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  "https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  "https://images.pexels.com/photos/158826/structure-light-led-movement-158826.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  "https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
 ];
 
 export function RandomVerseGenerator() {
-  const [currentVerse, setCurrentVerse] = useState(randomVerses[0]);
+  const [currentVerse, setCurrentVerse] = useState<any>({
+    reference: "Genesis 1:1",
+    text: "In the beginning God created the heaven and the earth.",
+    topic: "Creation",
+    background: backgrounds[0]
+  });
   const [isGenerating, setIsGenerating] = useState(false);
 
-  const generateRandomVerse = () => {
+  const generateRandomVerse = async () => {
     setIsGenerating(true);
-    setTimeout(() => {
-      const randomIndex = Math.floor(Math.random() * randomVerses.length);
-      setCurrentVerse(randomVerses[randomIndex]);
-      setIsGenerating(false);
-    }, 500);
+    
+    try {
+      const randomVerse = await getRandomVerse();
+      
+      if (randomVerse) {
+        setCurrentVerse({
+          reference: randomVerse.reference,
+          text: randomVerse.text,
+          topic: "Faith",
+          background: backgrounds[Math.floor(Math.random() * backgrounds.length)]
+        });
+      }
+    } catch (error) {
+      console.error('Error generating random verse:', error);
+    } finally {
+      setTimeout(() => {
+        setIsGenerating(false);
+      }, 500);
+    }
   };
 
   return (

@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { VerseCard } from '@/components/verse/verse-card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { getVerse, parseReference } from '@/lib/bible-data';
 
 interface VerseDisplayProps {
   reference: string;
@@ -31,25 +32,29 @@ export function VerseDisplay({ reference }: VerseDisplayProps) {
       try {
         setLoading(true);
         const cleanReference = reference.replace(/-/g, ' ');
-        const response = await fetch(`https://bible-api.com/${cleanReference}`);
+        const parsed = parseReference(cleanReference);
         
-        if (!response.ok) {
+        if (!parsed) {
+          throw new Error('Invalid verse reference');
+        }
+        
+        const verseData = await getVerse(parsed.book, parsed.chapter, parsed.verse);
+        
+        if (!verseData) {
           throw new Error('Verse not found');
         }
         
-        const data = await response.json();
-        
         setVerse({
-          reference: data.reference,
-          text: data.text,
+          reference: verseData.reference,
+          text: verseData.text,
           topic: 'Faith', // Default topic
           background: 'https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-          commentary: `This verse from ${data.reference} offers profound spiritual insight. The words speak to the heart of Christian faith and provide guidance for daily living. Each phrase carries deep meaning that has comforted and inspired believers throughout the centuries.`,
+          commentary: `This verse from ${verseData.reference} offers profound spiritual insight. The words speak to the heart of Christian faith and provide guidance for daily living. Each phrase carries deep meaning that has comforted and inspired believers throughout the centuries.`,
           context: `This passage appears in the broader context of biblical teaching about faith, love, and spiritual growth. Understanding the historical and cultural background helps us appreciate the full meaning of these inspired words.`,
           application: `In our daily lives, this verse challenges us to live out our faith practically. It reminds us to trust in God's goodness, show love to others, and find strength in His promises. Consider how these words can guide your decisions and relationships today.`
         });
       } catch (err) {
-        setError('Failed to load verse');
+        setError(err instanceof Error ? err.message : 'Failed to load verse');
         console.error('Error fetching verse:', err);
       } finally {
         setLoading(false);
@@ -75,7 +80,7 @@ export function VerseDisplay({ reference }: VerseDisplayProps) {
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-4xl text-center">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">Verse Not Found</h1>
-          <p className="text-gray-600 mb-8">The requested verse could not be loaded.</p>
+          <p className="text-gray-600 mb-8">The requested verse could not be loaded: {error}</p>
           <Button className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700">
             Search for Verses
           </Button>

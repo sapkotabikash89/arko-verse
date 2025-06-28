@@ -1,18 +1,42 @@
 "use client"
 
+import { useState, useEffect } from 'react';
 import { Calendar, Share2, Copy, Download, Heart } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { VerseCard } from '@/components/verse/verse-card';
+import { getRandomVerse } from '@/lib/bible-data';
 
 export function DailyVerse() {
-  const todaysVerse = {
+  const [todaysVerse, setTodaysVerse] = useState({
     reference: "John 15:17",
     text: "These things I command you, that ye love one another.",
     topic: "Love",
     date: new Date().toISOString().split('T')[0],
     background: "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-  };
+  });
+
+  useEffect(() => {
+    const loadDailyVerse = async () => {
+      try {
+        const randomVerse = await getRandomVerse();
+        if (randomVerse) {
+          setTodaysVerse({
+            reference: randomVerse.reference,
+            text: randomVerse.text,
+            topic: "Love",
+            date: new Date().toISOString().split('T')[0],
+            background: "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          });
+        }
+      } catch (error) {
+        console.error('Error loading daily verse:', error);
+        // Keep the default verse if loading fails
+      }
+    };
+
+    loadDailyVerse();
+  }, []);
 
   return (
     <section className="py-16 px-4 bg-gradient-to-r from-purple-50 to-indigo-50">
