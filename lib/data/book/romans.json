@@ -5,21 +5,74 @@
       "1": {
         "verseId": "romans-1-1",
         "reference": "Romans 1:1",
-        "text": "In the beginning God created the heaven and the earth."
-      }
-    },
-    "2": {
-      "1": {
-        "verseId": "romans-2-1",
-        "reference": "Romans 2:1",
-        "text": "And God said, Let there be light: and there was light."
+        "text": "Paul, a servant of Jesus Christ, called to be an apostle, separated unto the gospel of God,"
+      },
+      "16": {
+        "verseId": "romans-1-16",
+        "reference": "Romans 1:16",
+        "text": "For I am not ashamed of the gospel of Christ: for it is the power of God unto salvation to every one that believeth; to the Jew first, and also to the Greek."
       }
     },
     "3": {
+      "23": {
+        "verseId": "romans-3-23",
+        "reference": "Romans 3:23",
+        "text": "For all have sinned, and come short of the glory of God;"
+      }
+    },
+    "5": {
+      "8": {
+        "verseId": "romans-5-8",
+        "reference": "Romans 5:8",
+        "text": "But God commendeth his love toward us, in that, while we were yet sinners, Christ died for us."
+      }
+    },
+    "6": {
+      "23": {
+        "verseId": "romans-6-23",
+        "reference": "Romans 6:23",
+        "text": "For the wages of sin is death; but the gift of God is eternal life through Jesus Christ our Lord."
+      }
+    },
+    "8": {
+      "28": {
+        "verseId": "romans-8-28",
+        "reference": "Romans 8:28",
+        "text": "And we know that all things work together for good to them that love God, to them who are the called according to his purpose."
+      },
+      "38": {
+        "verseId": "romans-8-38",
+        "reference": "Romans 8:38",
+        "text": "For I am persuaded, that neither death, nor life, nor angels, nor principalities, nor powers, nor things present, nor things to come,"
+      },
+      "39": {
+        "verseId": "romans-8-39",
+        "reference": "Romans 8:39",
+        "text": "Nor height, nor depth, nor any other creature, shall be able to separate us from the love of God, which is in Christ Jesus our Lord."
+      }
+    },
+    "10": {
+      "9": {
+        "verseId": "romans-10-9",
+        "reference": "Romans 10:9",
+        "text": "That if thou shalt confess with thy mouth the Lord Jesus, and shalt believe in thine heart that God hath raised him from the dead, thou shalt be saved."
+      },
+      "13": {
+        "verseId": "romans-10-13",
+        "reference": "Romans 10:13",
+        "text": "For whosoever shall call upon the name of the Lord shall be saved."
+      }
+    },
+    "12": {
       "1": {
-        "verseId": "romans-3-1",
-        "reference": "Romans 3:1",
-        "text": "The Lord is my shepherd; I shall not want."
+        "verseId": "romans-12-1",
+        "reference": "Romans 12:1",
+        "text": "I beseech you therefore, brethren, by the mercies of God, that ye present your bodies a living sacrifice, holy, acceptable unto God, which is your reasonable service."
+      },
+      "2": {
+        "verseId": "romans-12-2",
+        "reference": "Romans 12:2",
+        "text": "And be not conformed to this world: but be ye transformed by the renewing of your mind, that ye may prove what is that good, and acceptable, and perfect, will of God."
       }
     }
   }
