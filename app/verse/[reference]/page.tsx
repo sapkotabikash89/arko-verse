@@ -17,11 +17,8 @@ export async function generateStaticParams() {
     // Generate all possible verse references for static generation
     const allReferences = await getAllVerseReferences();
     
-    // For development/build performance, we can limit this to a subset
-    // In production, you might want to generate all verses or use ISR
-    const limitedReferences = allReferences.slice(0, 1000); // Limit to first 1000 verses
-    
-    return limitedReferences.map((reference) => ({
+    // Return all references without limiting them
+    return allReferences.map((reference) => ({
       reference,
     }));
   } catch (error) {
