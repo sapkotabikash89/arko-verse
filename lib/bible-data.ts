@@ -117,27 +117,50 @@ export async function loadBookData(bookName: string): Promise<BookData | null> {
 
 export async function getVerseByVerseId(verseId: string): Promise<Verse | null> {
   // Parse verseId to get book, chapter, and verse
+  // Handle formats like "psalms-1-1", "1-corinthians-13-4", etc.
   const parts = verseId.split('-');
   if (parts.length < 3) return null;
   
+  // Find the last two parts as verse and chapter
   const verse = parts.pop();
   const chapter = parts.pop();
   const book = parts.join('-');
   
   if (!verse || !chapter || !book) return null;
   
-  return await getVerse(book, parseInt(chapter), parseInt(verse));
+  try {
+    return await getVerse(book, parseInt(chapter), parseInt(verse));
+  } catch (error) {
+    console.error(`Error getting verse by ID ${verseId}:`, error);
+    return null;
+  }
 }
 
 export async function getVerse(bookName: string, chapter: number, verse: number): Promise<Verse | null> {
-  const bookData = await loadBookData(bookName);
-  if (!bookData) return null;
+  try {
+    const bookData = await loadBookData(bookName);
+    if (!bookData) {
+      console.error(`Book data not found for: ${bookName}`);
+      return null;
+    }
 
-  const chapterData = bookData.chapters[chapter.toString()];
-  if (!chapterData) return null;
+    const chapterData = bookData.chapters[chapter.toString()];
+    if (!chapterData) {
+      console.error(`Chapter ${chapter} not found in book: ${bookName}`);
+      return null;
+    }
 
-  const verseData = chapterData[verse.toString()];
-  return verseData || null;
+    const verseData = chapterData[verse.toString()];
+    if (!verseData) {
+      console.error(`Verse ${verse} not found in ${bookName} chapter ${chapter}`);
+      return null;
+    }
+
+    return verseData;
+  } catch (error) {
+    console.error(`Error getting verse ${bookName} ${chapter}:${verse}:`, error);
+    return null;
+  }
 }
 
 export async function getChapter(bookName: string, chapter: number): Promise<Verse[]> {
@@ -170,7 +193,7 @@ export async function getRandomVerse(): Promise<Verse | null> {
 }
 
 export function parseReference(reference: string): { book: string; chapter: number; verse: number } | null {
-  // Parse references like "John 3:16", "1 Corinthians 13:4", etc.
+  // Parse references like "John 3:16", "1 Corinthians 13:4", "Psalms 1:1", etc.
   const match = reference.match(/^(.*?)\s+(\d+):(\d+)$/);
   if (!match) return null;
 
@@ -182,12 +205,12 @@ export function parseReference(reference: string): { book: string; chapter: numb
 }
 
 export function referenceToSlug(reference: string): string {
-  // Convert "John 3:16" to "john-3-16"
+  // Convert "John 3:16" to "john-3-16", "Psalms 1:1" to "psalms-1-1"
   return reference.toLowerCase().replace(/[:\s]/g, '-');
 }
 
 export function slugToReference(slug: string): string {
-  // Convert "john-3-16" to "John 3:16"
+  // Convert "psalms-1-1" to "Psalms 1:1", "john-3-16" to "John 3:16"
   const parts = slug.split('-');
   if (parts.length < 3) return slug;
   
