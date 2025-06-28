@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { getChapter, Verse } from '@/lib/bible-data';
+import { getChapter, Verse, referenceToSlug } from '@/lib/bible-data';
 
 interface ChapterDisplayProps {
   reference: string;
@@ -122,7 +122,7 @@ export function ChapterDisplay({ reference }: ChapterDisplayProps) {
           {verses.map((verse, index) => {
             // Extract verse number from reference
             const verseNumber = verse.reference.split(':')[1] || (index + 1).toString();
-            const verseSlug = verse.reference.replace(/[:\s]/g, '-').toLowerCase();
+            const verseSlug = referenceToSlug(verse.reference);
             
             return (
               <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow">

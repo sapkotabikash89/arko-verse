@@ -115,6 +115,20 @@ export async function loadBookData(bookName: string): Promise<BookData | null> {
   }
 }
 
+export async function getVerseByVerseId(verseId: string): Promise<Verse | null> {
+  // Parse verseId to get book, chapter, and verse
+  const parts = verseId.split('-');
+  if (parts.length < 3) return null;
+  
+  const verse = parts.pop();
+  const chapter = parts.pop();
+  const book = parts.join('-');
+  
+  if (!verse || !chapter || !book) return null;
+  
+  return await getVerse(book, parseInt(chapter), parseInt(verse));
+}
+
 export async function getVerse(bookName: string, chapter: number, verse: number): Promise<Verse | null> {
   const bookData = await loadBookData(bookName);
   if (!bookData) return null;
@@ -165,6 +179,28 @@ export function parseReference(reference: string): { book: string; chapter: numb
     chapter: parseInt(match[2]),
     verse: parseInt(match[3])
   };
+}
+
+export function referenceToSlug(reference: string): string {
+  // Convert "John 3:16" to "john-3-16"
+  return reference.toLowerCase().replace(/[:\s]/g, '-');
+}
+
+export function slugToReference(slug: string): string {
+  // Convert "john-3-16" to "John 3:16"
+  const parts = slug.split('-');
+  if (parts.length < 3) return slug;
+  
+  const verse = parts.pop();
+  const chapter = parts.pop();
+  const book = parts.join(' ');
+  
+  // Capitalize first letter of each word in book name
+  const capitalizedBook = book.split(' ').map(word => 
+    word.charAt(0).toUpperCase() + word.slice(1)
+  ).join(' ');
+  
+  return `${capitalizedBook} ${chapter}:${verse}`;
 }
 
 // Topic-based verse collections using local data

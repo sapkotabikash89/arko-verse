@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { toast } from "sonner";
 import Link from 'next/link';
+import { referenceToSlug } from '@/lib/bible-data';
 
 interface Verse {
   reference: string;
@@ -70,7 +71,7 @@ export function VerseCard({ verse, showInteractive = false, customBackground }: 
       });
       
       const link = document.createElement('a');
-      link.download = `${verse.reference.replace(/[:\s]/g, '-')}-verse.png`;
+      link.download = `${referenceToSlug(verse.reference)}-verse.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
       
@@ -105,6 +106,8 @@ export function VerseCard({ verse, showInteractive = false, customBackground }: 
     ? { backgroundImage: `url(${currentBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }
     : { background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' };
 
+  const verseSlug = referenceToSlug(verse.reference);
+
   return (
     <div className="space-y-4">
       {/* Main Verse Card */}
@@ -138,7 +141,7 @@ export function VerseCard({ verse, showInteractive = false, customBackground }: 
               
               <div className="space-y-4">
                 <Link 
-                  href={`/verse/${verse.reference.replace(/[:\s]/g, '-')}`}
+                  href={`/verse/${verseSlug}`}
                   className="inline-block"
                 >
                   <p className="text-xl font-semibold text-yellow-200 hover:text-yellow-100 transition-colors cursor-pointer">
@@ -214,7 +217,7 @@ export function VerseCard({ verse, showInteractive = false, customBackground }: 
             Change Background
           </Button>
 
-          <Link href={`/verse/${verse.reference.replace(/[:\s]/g, '-')}`}>
+          <Link href={`/verse/${verseSlug}`}>
             <Button
               variant="outline"
               size="sm"

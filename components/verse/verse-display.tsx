@@ -6,7 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { VerseCard } from '@/components/verse/verse-card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { getVerse, parseReference } from '@/lib/bible-data';
+import { getVerseByVerseId, slugToReference } from '@/lib/bible-data';
 
 interface VerseDisplayProps {
   reference: string;
@@ -31,14 +31,19 @@ export function VerseDisplay({ reference }: VerseDisplayProps) {
     const fetchVerse = async () => {
       try {
         setLoading(true);
-        const cleanReference = reference.replace(/-/g, ' ');
-        const parsed = parseReference(cleanReference);
         
-        if (!parsed) {
-          throw new Error('Invalid verse reference');
+        // Try to load by verseId first (slug format)
+        let verseData = await getVerseByVerseId(reference);
+        
+        // If not found, try converting slug to reference format
+        if (!verseData) {
+          const referenceFormat = slugToReference(reference);
+          const parsed = referenceFormat.match(/^(.*?)\s+(\d+):(\d+)$/);
+          if (parsed) {
+            const { getVerse } = await import('@/lib/bible-data');
+            verseData = await getVerse(parsed[1].trim(), parseInt(parsed[2]), parseInt(parsed[3]));
+          }
         }
-        
-        const verseData = await getVerse(parsed.book, parsed.chapter, parsed.verse);
         
         if (!verseData) {
           throw new Error('Verse not found');

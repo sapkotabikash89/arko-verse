@@ -5,7 +5,8 @@ import { VerseCard } from '@/components/verse/verse-card';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ChevronDown, BookOpen } from 'lucide-react';
-import { getVersesByTopic, Verse } from '@/lib/bible-data';
+import { getVersesByTopic, Verse, referenceToSlug } from '@/lib/bible-data';
+import Link from 'next/link';
 
 interface TopicVersesProps {
   topic: string;
@@ -110,12 +111,16 @@ export function TopicVerses({ topic }: TopicVersesProps) {
                       "{verse.text}"
                     </blockquote>
                     <div className="space-y-2">
-                      <p className="text-xl font-semibold text-purple-600">
-                        {verse.reference}
-                      </p>
-                      <span className="inline-block px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
-                        {topic}
-                      </span>
+                      <Link href={`/verse/${referenceToSlug(verse.reference)}`}>
+                        <p className="text-xl font-semibold text-purple-600 hover:text-purple-800 cursor-pointer">
+                          {verse.reference}
+                        </p>
+                      </Link>
+                      <Link href={`/topic/${topic.toLowerCase()}`}>
+                        <span className="inline-block px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium hover:bg-purple-200 cursor-pointer">
+                          {topic}
+                        </span>
+                      </Link>
                     </div>
                   </div>
                 </CardContent>

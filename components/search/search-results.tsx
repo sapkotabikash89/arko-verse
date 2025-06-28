@@ -8,7 +8,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { getVersesByTopic, getVerse, parseReference, Verse } from '@/lib/bible-data';
+import { getVersesByTopic, getVerse, parseReference, Verse, referenceToSlug } from '@/lib/bible-data';
+import Link from 'next/link';
 
 interface VerseResult {
   reference: string;
@@ -181,13 +182,17 @@ export function SearchResults() {
                         "{verse.text}"
                       </blockquote>
                       <div className="space-y-2">
-                        <p className="text-xl font-semibold text-purple-600">
-                          {verse.reference}
-                        </p>
+                        <Link href={`/verse/${referenceToSlug(verse.reference)}`}>
+                          <p className="text-xl font-semibold text-purple-600 hover:text-purple-800 cursor-pointer">
+                            {verse.reference}
+                          </p>
+                        </Link>
                         {verse.topic && (
-                          <span className="inline-block px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
-                            {verse.topic}
-                          </span>
+                          <Link href={`/topic/${verse.topic.toLowerCase()}`}>
+                            <span className="inline-block px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium hover:bg-purple-200 cursor-pointer">
+                              {verse.topic}
+                            </span>
+                          </Link>
                         )}
                       </div>
                     </div>
