@@ -1,0 +1,26 @@
+{
+  "book": "Numbers",
+  "chapters": {
+    "1": {
+      "1": {
+        "verseId": "numbers-1-1",
+        "reference": "Numbers 1:1",
+        "text": "In the beginning God created the heaven and the earth."
+      }
+    },
+    "2": {
+      "1": {
+        "verseId": "numbers-2-1",
+        "reference": "Numbers 2:1",
+        "text": "And God said, Let there be light: and there was light."
+      }
+    },
+    "3": {
+      "1": {
+        "verseId": "numbers-3-1",
+        "reference": "Numbers 3:1",
+        "text": "The Lord is my shepherd; I shall not want."
+      }
+    }
+  }
+}

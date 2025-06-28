@@ -1,0 +1,26 @@
+{
+  "book": "Deuteronomy",
+  "chapters": {
+    "1": {
+      "1": {
+        "verseId": "deuteronomy-1-1",
+        "reference": "Deuteronomy 1:1",
+        "text": "In the beginning God created the heaven and the earth."
+      }
+    },
+    "2": {
+      "1": {
+        "verseId": "deuteronomy-2-1",
+        "reference": "Deuteronomy 2:1",
+        "text": "And God said, Let there be light: and there was light."
+      }
+    },
+    "3": {
+      "1": {
+        "verseId": "deuteronomy-3-1",
+        "reference": "Deuteronomy 3:1",
+        "text": "The Lord is my shepherd; I shall not want."
+      }
+    }
+  }
+}

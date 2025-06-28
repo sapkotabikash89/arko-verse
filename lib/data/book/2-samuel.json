@@ -1,0 +1,26 @@
+{
+  "book": "2 Samuel",
+  "chapters": {
+    "1": {
+      "1": {
+        "verseId": "2-samuel-1-1",
+        "reference": "2 Samuel 1:1",
+        "text": "In the beginning God created the heaven and the earth."
+      }
+    },
+    "2": {
+      "1": {
+        "verseId": "2-samuel-2-1",
+        "reference": "2 Samuel 2:1",
+        "text": "And God said, Let there be light: and there was light."
+      }
+    },
+    "3": {
+      "1": {
+        "verseId": "2-samuel-3-1",
+        "reference": "2 Samuel 3:1",
+        "text": "The Lord is my shepherd; I shall not want."
+      }
+    }
+  }
+}

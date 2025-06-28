@@ -1,0 +1,26 @@
+{
+  "book": "Job",
+  "chapters": {
+    "1": {
+      "1": {
+        "verseId": "job-1-1",
+        "reference": "Job 1:1",
+        "text": "In the beginning God created the heaven and the earth."
+      }
+    },
+    "2": {
+      "1": {
+        "verseId": "job-2-1",
+        "reference": "Job 2:1",
+        "text": "And God said, Let there be light: and there was light."
+      }
+    },
+    "3": {
+      "1": {
+        "verseId": "job-3-1",
+        "reference": "Job 3:1",
+        "text": "The Lord is my shepherd; I shall not want."
+      }
+    }
+  }
+}

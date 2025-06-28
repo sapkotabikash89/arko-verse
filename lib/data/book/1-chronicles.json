@@ -1,0 +1,26 @@
+{
+  "book": "1 Chronicles",
+  "chapters": {
+    "1": {
+      "1": {
+        "verseId": "1-chronicles-1-1",
+        "reference": "1 Chronicles 1:1",
+        "text": "In the beginning God created the heaven and the earth."
+      }
+    },
+    "2": {
+      "1": {
+        "verseId": "1-chronicles-2-1",
+        "reference": "1 Chronicles 2:1",
+        "text": "And God said, Let there be light: and there was light."
+      }
+    },
+    "3": {
+      "1": {
+        "verseId": "1-chronicles-3-1",
+        "reference": "1 Chronicles 3:1",
+        "text": "The Lord is my shepherd; I shall not want."
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "book": "Amos",
+  "chapters": {
+    "1": {
+      "1": {
+        "verseId": "amos-1-1",
+        "reference": "Amos 1:1",
+        "text": "In the beginning God created the heaven and the earth."
+      }
+    },
+    "2": {
+      "1": {
+        "verseId": "amos-2-1",
+        "reference": "Amos 2:1",
+        "text": "And God said, Let there be light: and there was light."
+      }
+    },
+    "3": {
+      "1": {
+        "verseId": "amos-3-1",
+        "reference": "Amos 3:1",
+        "text": "The Lord is my shepherd; I shall not want."
+      }
+    }
+  }
+}

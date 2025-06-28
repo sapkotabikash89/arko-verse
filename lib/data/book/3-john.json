@@ -1,0 +1,26 @@
+{
+  "book": "3 John",
+  "chapters": {
+    "1": {
+      "1": {
+        "verseId": "3-john-1-1",
+        "reference": "3 John 1:1",
+        "text": "In the beginning God created the heaven and the earth."
+      }
+    },
+    "2": {
+      "1": {
+        "verseId": "3-john-2-1",
+        "reference": "3 John 2:1",
+        "text": "And God said, Let there be light: and there was light."
+      }
+    },
+    "3": {
+      "1": {
+        "verseId": "3-john-3-1",
+        "reference": "3 John 3:1",
+        "text": "The Lord is my shepherd; I shall not want."
+      }
+    }
+  }
+}
