@@ -226,6 +226,26 @@ export function slugToReference(slug: string): string {
   return `${capitalizedBook} ${chapter}:${verse}`;
 }
 
+// Generate all possible chapter references for static generation
+export async function getAllChapterReferences(): Promise<string[]> {
+  const references: string[] = [];
+  
+  for (const bookName of Object.keys(bookModules)) {
+    try {
+      const bookData = await loadBookData(bookName);
+      if (!bookData) continue;
+      
+      for (const chapterNum of Object.keys(bookData.chapters)) {
+        references.push(`${bookName}-${chapterNum}`);
+      }
+    } catch (error) {
+      console.error(`Error loading ${bookName}:`, error);
+    }
+  }
+  
+  return references;
+}
+
 // Generate all possible verse references for static generation
 export async function getAllVerseReferences(): Promise<string[]> {
   const references: string[] = [];
