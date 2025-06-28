@@ -17,7 +17,7 @@ export interface BookData {
 }
 
 // Import all book data
-const bookModules = {
+export const bookModules = {
   'genesis': () => import('./data/book/genesis.json'),
   'exodus': () => import('./data/book/exodus.json'),
   'leviticus': () => import('./data/book/leviticus.json'),
@@ -201,6 +201,29 @@ export function slugToReference(slug: string): string {
   ).join(' ');
   
   return `${capitalizedBook} ${chapter}:${verse}`;
+}
+
+// Generate all possible verse references for static generation
+export async function getAllVerseReferences(): Promise<string[]> {
+  const references: string[] = [];
+  
+  for (const bookName of Object.keys(bookModules)) {
+    try {
+      const bookData = await loadBookData(bookName);
+      if (!bookData) continue;
+      
+      for (const chapterNum of Object.keys(bookData.chapters)) {
+        const chapterData = bookData.chapters[chapterNum];
+        for (const verseNum of Object.keys(chapterData)) {
+          references.push(`${bookName}-${chapterNum}-${verseNum}`);
+        }
+      }
+    } catch (error) {
+      console.error(`Error loading ${bookName}:`, error);
+    }
+  }
+  
+  return references;
 }
 
 // Topic-based verse collections using local data
